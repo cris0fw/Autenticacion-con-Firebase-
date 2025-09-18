@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from "react-router";
-import { useSigninCheck } from "reactfire";
+import { useSigninCheck, useUser } from "reactfire";
 import Navbar from "../components/Navbar";
+import { Suspense } from "react";
 
 // CONFIGURACION DE RUTAS EN RUTAS ADMIN
 const AdminLayout = () => {
@@ -17,11 +18,25 @@ const AdminLayout = () => {
   }
 
   return (
+    <Suspense fallback={<div>loading user...</div>}>
+      <AuthenticatedLayout />
+    </Suspense>
+  );
+};
+
+export default AdminLayout;
+
+//USO SUSPENSE COMO PARA QUE EN LA PAGINA DE DASHBOARD AL PONER ESTO USER?.DISPLAYNAME
+//SE USE SIN ? Y ESTE ASI USER.DISPLAY YA QUE ESTARIA VALIDADO ESTARIA HACIANDO UNA
+//ESPERA HASTA QUE EL USUARIO CARGUE
+const AuthenticatedLayout = () => {
+  useUser({
+    suspense: true,
+  });
+  return (
     <div>
       <Navbar />
       <Outlet />
     </div>
   );
 };
-
-export default AdminLayout;

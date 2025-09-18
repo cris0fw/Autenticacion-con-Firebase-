@@ -44,7 +44,7 @@ export const profileZodSchema = z.object({
     .string()
     .min(1, "Display name is required")
     .max(50, "Display must be at most 50 characters long"),
-  photoURL: z.url().optional(),
+  photoURL: z.union([z.url("Invalid URL format"), z.literal("")]).optional(),
 });
 
 export type zodSchemaLogin = z.infer<typeof formSchemaLogin>;

@@ -6,8 +6,8 @@ const Dashboard = () => {
   return (
     <div>
       <h1>Dasboard</h1>
-      <p>Welcome, {user?.displayName || "Guest"}</p>
-      <p>Email: {user?.email || "Not provided"}</p>
+      <p>Welcome, {user!.displayName || "Guest"}</p>
+      <p>Email: {user!.email || "Not provided"}</p>
     </div>
   );
 };
